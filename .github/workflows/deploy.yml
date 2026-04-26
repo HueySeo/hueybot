@@ -1,33 +1,50 @@
-name: Deploy MkDocs documentation to GitHub Pages
+site_name: HueyBot - Investment Psychology Assistant
+site_description: Intelligent investment assistant
+site_author: HueySeo Team
+site_url: https://hueyseo.github.io/hueybot/
 
-on:
-  push:
-    branches:
-      - main
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.instant
+    - toc.integrate
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Light mode
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
+nav:
+  - Home: index.md
+  - Chapter 1: chapter-1-overview.md
+  - Chapter 2: chapter-2-features.md
+  - Chapter 3: chapter-3-how-it-works.md
+  - Chapter 4: chapter-4-getting-started.md
+  - Chapter 5: chapter-5-examples.md
+  - Chapter 6: chapter-6-tech-stack.md
+  - Chapter 7: chapter-7-roadmap.md
+  - Chapter 8: chapter-8-support.md
 
-    steps:
-      - name: Check out the repository
-        uses: actions/checkout@v2
+plugins:
+  - search
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-
-      - name: Install MkDocs and dependencies
-        run: |
-          pip install mkdocs
-          pip install mkdocs-material
-
-      - name: Build the documentation
-        run: mkdocs build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+markdown_extensions:
+  - pymdownx.emoji
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - pymdownx.highlight
+  - admonition
+  - tables
+  - toc:
+      permalink: true
